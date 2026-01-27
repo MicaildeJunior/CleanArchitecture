@@ -1,6 +1,7 @@
+using CleanArchitecture.API.Filters.Validations;
+using CleanArchitecture.Application.Services;
 using CleanArchitecture.Persistence;
 using CleanArchitecture.Persistence.Context;
-using CleanArchitecture.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigurePersistenceApp(builder.Configuration);
 builder.Services.ConfigureApplicationApp();
+
+// Registrar o filtro no DI do Filter
+//builder.Services.AddScoped<CreateUserValidatorFilter>();
+
+//// Adicionar controllers e aplicar o filtro globalmente
+//builder.Services.AddControllers(options =>
+//{
+//    options.Filters.Add<CreateUserValidatorFilter>();
+//});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

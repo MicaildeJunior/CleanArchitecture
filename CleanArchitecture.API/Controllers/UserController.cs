@@ -18,15 +18,13 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<CreateUserResponse>> Create(CreateUserRequest request, CancellationToken cancellationToken)
-    {
-        var validator = new CreateUserValidator();
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+    public async Task<IActionResult> CreateUser(CreateUserRequest request, CancellationToken cancellationToken)
+    {     
+        var result = await _mediator.Send(request, cancellationToken);
 
-        if(!validationResult.IsValid)        
-            return BadRequest(validationResult.Errors);        
+        if (!result.IsSuccess)
+            return BadRequest(new { errors = result.Errors });
 
-        var response = await _mediator.Send(request, cancellationToken);
-        return Ok(response);
+        return Ok(result.Value); 
     }
 }
