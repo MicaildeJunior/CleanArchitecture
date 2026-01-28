@@ -1,8 +1,7 @@
-﻿namespace CleanArchitecture.Application.UseCases.CreateUser;
+﻿using CleanArchitecture.Application.Dtos;
 
-public sealed record CreateUserResponse
+namespace CleanArchitecture.Application.UseCases.CreateUser;
+
+public sealed record CreateUserResponse : UserResponse
 {
-    public Guid Id { get; set; }
-    public string? Email { get; set; }
-    public string? Name { get; set; }
 }

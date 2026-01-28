@@ -3,9 +3,9 @@ using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.UseCases.CreateUser;
 
-public sealed class CreateUserMap : Profile
+public sealed class CreateUserMapper : Profile
 {
-    public CreateUserMap()
+    public CreateUserMapper()
     {
         CreateMap<CreateUserRequest, User>();
         CreateMap<User, CreateUserResponse>();
