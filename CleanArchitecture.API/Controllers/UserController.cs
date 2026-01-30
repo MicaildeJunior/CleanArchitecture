@@ -1,9 +1,13 @@
+using CleanArchitecture.API.Extensions;
+using CleanArchitecture.Application.Dtos;
 using CleanArchitecture.Application.UseCases.CreateUser;
+using CleanArchitecture.Application.UseCases.DeleteUser;
 using CleanArchitecture.Application.UseCases.GelAllUser;
+using CleanArchitecture.Application.UseCases.GetUser;
+using CleanArchitecture.Application.UseCases.UpdateUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using CleanArchitecture.API.Extensions;
-using CleanArchitecture.Application.Shared;
+using System.Threading;
 
 namespace CleanArchitecture.API.Controllers;
 
@@ -20,10 +24,10 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<List<GetAllUserResponse>>> GetById(CancellationToken cancellationToken)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<UserResponse>> GetById(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetAllUserRequest(), cancellationToken);
+        var result = await _mediator.Send(new GetUserRequest(id), cancellationToken);
 
         return result.ToActionResult();
     }
@@ -36,11 +40,26 @@ public class UserController : ControllerBase
         return result.ToActionResult();
     }
 
-
     [HttpPost]
     public async Task<ActionResult<CreateUserResponse>> CreateUser(CreateUserRequest request, CancellationToken cancellationToken)
     {     
         var result = await _mediator.Send(request, cancellationToken);
+
+        return result.ToActionResult();
+    }
+
+    [HttpPut]
+    public async Task<ActionResult<UpdateUserResponse>> UpdateUser(UpdateUserRequest request, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(request, cancellationToken);
+
+        return result.ToActionResult();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<DeleteUserResponse>> DeleteUser(Guid id, CancellationToken cancellationToken)
+    {
+       var result = await _mediator.Send(new DeleteUserRequest(id), cancellationToken);
 
         return result.ToActionResult();
     }

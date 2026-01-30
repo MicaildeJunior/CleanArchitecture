@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using CleanArchitecture.Application.UseCases.GelAllUser;
 using CleanArchitecture.Domain.Entities;
 
-namespace CleanArchitecture.Application.UseCases.GelAllUser;
+namespace CleanArchitecture.Application.UseCases.GetUser;
 
 public sealed class GelAllUserMapper : Profile
 {
